@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>دعوة زفاف</title>
+<title>دعوة زفاف محمود عدي</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@700&family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700&display=swap">
 <style>
 :root{
@@ -197,15 +197,13 @@ main{max-width:470px;margin:0 auto;padding:26px 12px 40px}
 </article></main>
 
 <script>
-// ضع رابط قاعدة بيانات Firebase هنا
-const DB_URL = "ضع_رابط_قاعدة_البيانات_هنا";
+const DB_URL = "https://monasbat-7899c-default-rtdb.firebaseio.com";
 
 const $ = id => document.getElementById(id);
 let targetTimestamp = new Date("2026-11-19T18:00:00+03:00").getTime();
 let currentEffect = "hearts";
 let fxInterval = null;
 
-// تحديث العداد التنازلي
 setInterval(() => {
   const s = Math.max(0, Math.floor((targetTimestamp - Date.now()) / 1000));
   $("dd").textContent = Math.floor(s / 86400);
@@ -214,7 +212,6 @@ setInterval(() => {
   $("ss").textContent = s % 60;
 }, 1000);
 
-// تشغيل المؤثرات حسب اختيار الأدمن
 function spawnEffect() {
   if (document.hidden || currentEffect === "none") return;
   const el = document.createElement("span");
@@ -241,11 +238,9 @@ function spawnEffect() {
   setTimeout(() => el.remove(), 11000);
 }
 
-// تطبيق البيانات القادمة من لوحة التحكم لحظياً
 function applyConfig(data) {
   if (!data) return;
 
-  // التحقق من حالة الدعوة أو انتهاء الصلاحية (3 أيام)
   const threeDays = 3 * 24 * 60 * 60 * 1000;
   if (data.isActive === false || (data.createdAt && (Date.now() - data.createdAt > threeDays))) {
     $("expiredScreen").style.display = "flex";
@@ -254,13 +249,9 @@ function applyConfig(data) {
     $("expiredScreen").style.display = "none";
   }
 
-  // تطبيق الثيم
   document.body.className = (document.body.classList.contains("open") ? "open " : "") + (data.theme || "theme-royal");
-
-  // تحديث المؤثر
   currentEffect = data.effect || "hearts";
 
-  // تحديث النصوص
   if(data.coverTitle) $("coverTitle").textContent = data.coverTitle;
   if(data.coverSubtitle) $("coverSubtitle").textContent = data.coverSubtitle;
   if(data.groomFirst && data.groomLast) $("coverNames").textContent = `${data.groomFirst} ${data.groomLast}`;
@@ -271,11 +262,9 @@ function applyConfig(data) {
   if(data.brideFirst) $("brideFirst").textContent = data.brideFirst;
   if(data.brideLast) $("brideLast").textContent = data.brideLast;
 
-  // تحديث الصور
   if(data.coverImg) $("coverImg").style.backgroundImage = `url('${data.coverImg}')`;
   if(data.mainPhoto) $("mainPhoto").src = data.mainPhoto;
 
-  // تحديث المواعيد والأماكن
   if(data.dayName) $("dayName").textContent = data.dayName;
   if(data.dayNum) $("dayNum").textContent = data.dayNum;
   if(data.yearMonth) $("yearMonth").textContent = data.yearMonth;
@@ -295,11 +284,9 @@ function applyConfig(data) {
   if(data.views !== undefined) $("visitorCount").textContent = Number(data.views).toLocaleString('ar-SA');
 }
 
-// الاتصال اللحظي بقاعدة البيانات (Server-Sent Events) بدون تحديث يدوي
 function connectLiveDB() {
   if (!DB_URL.startsWith("http")) return;
 
-  // تسجيل زيارة جديدة مرة واحدة لكل جلسة
   if (!sessionStorage.getItem("counted_view")) {
     fetch(`${DB_URL}/weddingConfig/views.json`)
       .then(r => r.json())
@@ -310,7 +297,8 @@ function connectLiveDB() {
       });
   }
 
-  // الاستماع لأي تغيير يحدث في لوحة التحكم وتطبيقه فوراً
+  fetch(`${DB_URL}/weddingConfig.json`).then(r => r.json()).then(applyConfig);
+
   const evtSource = new EventSource(`${DB_URL}/weddingConfig.json`);
   evtSource.addEventListener("put", e => {
     const parsed = JSON.parse(e.data);
