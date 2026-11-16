@@ -263,7 +263,7 @@
         <h1>صديقك الذكي</h1>
         <div class="status" id="statusText">جاهز للتفاعل معك</div>
         <div class="api-bar">
-            <input type="password" id="apiKeyInput" placeholder="ضع مفتاح Groq API هنا (gsk_...)">
+            <input type="password" id="apiKeyInput" placeholder="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ا (hf_...)">
             <button id="saveKeyBtn">حفظ</button>
         </div>
     </div>
@@ -282,7 +282,7 @@
 
     <!-- سجل المحادثة -->
     <div class="chat-box" id="chatBox">
-        <div class="msg bot">أهلاً بك! ضع مفتاح Groq في الأعلى ثم تحدث معي أو اكتب رسالتك.</div>
+        <div class="msg bot">أهلاً بك! ضع مفتاح Hugging Face في الأعلى ثم تحدث معي أو اكتب رسالتك.</div>
     </div>
 
     <!-- أدوات التحكم -->
@@ -305,26 +305,21 @@
         const saveKeyBtn = document.getElementById('saveKeyBtn');
 
         // استرجاع المفتاح المحفوظ في المتصفح إن وجد
-        let GROQ_API_KEY = localStorage.getItem('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') || '';
-        if (GROQ_API_KEY) {
-            apiKeyInput.value = GROQ_API_KEY;
+        let HF_API_KEY = localStorage.getItem('hf_api_key') || '';
+        if (HF_API_KEY) {
+            apiKeyInput.value = HF_API_KEY;
         }
 
         saveKeyBtn.addEventListener('click', () => {
             const key = apiKeyInput.value.trim();
-            if (key.startsWith('gsk_')) {
-                GROQ_API_KEY = key;
-                localStorage.setItem('groq_api_key', key);
+            if (key.startsWith('hf_')) {
+                HF_API_KEY = key;
+                localStorage.setItem('hf_api_key', key);
                 statusText.textContent = 'تم حفظ المفتاح بنجاح!';
             } else {
-                statusText.textContent = 'المفتاح غير صحيح، يجب أن يبدأ بـ gsk_';
+                statusText.textContent = 'المفتاح غير صحيح، يجب أن يبدأ بـ hf_';
             }
         });
-
-        // ذاكرة المحادثة
-        let conversationHistory = [
-            { role: "system", content: "أنت مساعد ذكي ودود تتحدث باللغة العربية بطلاقة وبأسلوب مختصر ومباشر مناسب للمحادثات الصوتية." }
-        ];
 
         // إعداد التعرف على الصوت
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -402,12 +397,12 @@
             chatBox.scrollTop = chatBox.scrollHeight;
         }
 
-        // الاتصال الفعلي بـ Groq API
+        // الاتصال بـ Hugging Face Inference API
         async function handleUserMessage(text) {
             addMessage(text, 'user');
 
-            if (!GROQ_API_KEY) {
-                const warning = 'يرجى إدخال مفتاح Groq API الصحيح (يبدأ بـ gsk_) في الخانة بالأعلى أولاً.';
+            if (!HF_API_KEY) {
+                const warning = 'يرجى إدخال مفتاح Hugging Face API الصحيح (يبدأ بـ hf_) في الخانة بالأعلى أولاً.';
                 addMessage(warning, 'bot');
                 speakText(warning);
                 return;
@@ -415,31 +410,29 @@
 
             avatar.className = 'avatar-container thinking';
             statusText.textContent = 'جاري التفكير...';
-            conversationHistory.push({ role: "user", content: text });
 
             try {
-                const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                // استخدام نموذج محادثة مجاني ومتاح عبر Inference API
+                const response = await fetch('https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-beta', {
                     method: 'POST',
                     headers: {
-                        'Authorization': `Bearer ${GROQ_API_KEY}`,
+                        'Authorization': `Bearer ${HF_API_KEY}`,
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        model: 'llama-3.3-70b-versatile',
-                        messages: conversationHistory,
-                        temperature: 0.7,
-                        max_tokens: 300
+                        inputs: `<|system|>أنت مساعد ذكي ودود تتحدث باللغة العربية بطلاقة وبأسلوب مختصر ومباشر مناسب للمحادثات الصوتية.</s><|user|>${text}</s><|assistant|>`,
+                        parameters: { max_new_tokens: 250, return_full_text: false }
                     })
                 });
 
                 const data = await response.json();
 
                 if (!response.ok) {
-                    throw new Error(data.error?.message || 'خطأ في الاتصال بالخادم');
+                    throw new Error(data.error || 'خطأ في الاتصال بالخادم');
                 }
 
-                const botReply = data.choices[0].message.content;
-                conversationHistory.push({ role: "assistant", content: botReply });
+                // استخراج النص من الإجابة
+                const botReply = data[0]?.generated_text || 'لم أتمكن من صياغة إجابة.';
                 
                 addMessage(botReply, 'bot');
                 speakText(botReply);
