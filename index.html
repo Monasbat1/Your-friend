@@ -1,47 +1,422 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>صديقي الذكي</title>
-<style>
-body { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif; background: #f0f2f5; }
-#character { width: 150px; height: 150px; background: #4a90e2; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.5rem; transition: transform 0.2s; }
-.talking { animation: bounce 0.5s infinite alternate; background: #2ecc71 !important; }
-@keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-20px); } }
-button { margin-top: 30px; padding: 15px 30px; font-size: 1.2rem; cursor: pointer; border-radius: 25px; border: none; background: #333; color: white; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المساعد الذكي التفاعلي</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: radial-gradient(circle at center, #1a1f35 0%, #0b0e17 100%);
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        .header {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .header h1 {
+            font-size: 1.5rem;
+            color: #38bdf8;
+            letter-spacing: 1px;
+        }
+        .status {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-top: 5px;
+            height: 20px;
+        }
+
+        /* تصميم الشخصية (Avatar) */
+        .avatar-container {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .glow-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid #38bdf8;
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
+            transition: all 0.3s ease;
+        }
+        .avatar-face {
+            width: 190px;
+            height: 190px;
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+        }
+        .eyes {
+            display: flex;
+            gap: 35px;
+            margin-bottom: 25px;
+        }
+        .eye {
+            width: 24px;
+            height: 32px;
+            background-color: #38bdf8;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #38bdf8;
+            animation: blink 4s infinite;
+            transition: all 0.2s;
+        }
+        .mouth {
+            width: 45px;
+            height: 10px;
+            background-color: #38bdf8;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #38bdf8;
+            transition: all 0.1s ease;
+        }
+
+        /* حالات الشخصية */
+        .listening .glow-ring {
+            border-color: #ef4444;
+            box-shadow: 0 0 35px rgba(239, 68, 68, 0.7);
+            animation: pulse 1.2s infinite;
+        }
+        .listening .eye, .listening .mouth {
+            background-color: #ef4444;
+            box-shadow: 0 0 15px #ef4444;
+        }
+
+        .speaking .glow-ring {
+            border-color: #10b981;
+            box-shadow: 0 0 35px rgba(16, 185, 129, 0.7);
+        }
+        .speaking .eye {
+            background-color: #10b981;
+            box-shadow: 0 0 15px #10b981;
+        }
+        .speaking .mouth {
+            background-color: #10b981;
+            box-shadow: 0 0 15px #10b981;
+            animation: talk 0.3s infinite alternate;
+        }
+
+        @keyframes blink {
+            0%, 96%, 100% { transform: scaleY(1); }
+            98% { transform: scaleY(0.1); }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.06); }
+            100% { transform: scale(1); }
+        }
+        @keyframes talk {
+            0% { height: 8px; border-radius: 10px; }
+            100% { height: 28px; border-radius: 50%; }
+        }
+
+        /* صندوق المحادثة */
+        .chat-box {
+            width: 100%;
+            max-width: 450px;
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 15px;
+            min-height: 110px;
+            max-height: 180px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .msg {
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            max-width: 85%;
+        }
+        .msg.bot {
+            background: #1e293b;
+            color: #e2e8f0;
+            align-self: flex-start;
+            border-right: 3px solid #38bdf8;
+        }
+        .msg.user {
+            background: #0284c7;
+            color: #ffffff;
+            align-self: flex-end;
+        }
+
+        /* أزرار التحكم */
+        .controls {
+            width: 100%;
+            max-width: 450px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .mic-btn {
+            background: linear-gradient(135deg, #0284c7, #2563eb);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+            transition: transform 0.1s, background 0.3s;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        .mic-btn:active {
+            transform: scale(0.97);
+        }
+        .mic-btn.active {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.5);
+        }
+        .text-input-group {
+            display: flex;
+            gap: 8px;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 12px 15px;
+            border-radius: 25px;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: white;
+            font-size: 0.95rem;
+            outline: none;
+        }
+        .send-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-​<div id="character">أنا صديقك</div>
-<button id="btn">تحدث معي</button>
-​<script>
-const character = document.getElementById('character');
-const btn = document.getElementById('btn');
-​const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-const recognition = new SpeechRecognition();
-recognition.lang = 'ar-SA';
-​recognition.onresult = async (event) => {
-const text = event.results[0][0].transcript;
-character.innerText = "أفكر...";
-​// محاكاة الرد (يمكنك ربطه بـ API لاحقاً)
-setTimeout(() => {
-speak("أهلاً بك! أنا مستمتع بحديثنا اليوم.");
-}, 1000);
-};
-​function speak(text) {
-const utterance = new SpeechSynthesisUtterance(text);
-utterance.lang = 'ar-SA';
-utterance.onstart = () => character.classList.add('talking');
-utterance.onend = () => {
-character.classList.remove('talking');
-character.innerText = "أنا صديقك";
-};
-window.speechSynthesis.speak(utterance);
-}
-​btn.onclick = () => {
-character.innerText = "أسمعك...";
-recognition.start();
-};
-</script>
-​</body>
+
+    <div class="header">
+        <h1>صديقك الذكي</h1>
+        <div class="status" id="statusText">جاهز للتفاعل معك</div>
+    </div>
+
+    <!-- الشخصية التفاعلية -->
+    <div class="avatar-container" id="avatar">
+        <div class="glow-ring"></div>
+        <div class="avatar-face">
+            <div class="eyes">
+                <div class="eye"></div>
+                <div class="eye"></div>
+            </div>
+            <div class="mouth"></div>
+        </div>
+    </div>
+
+    <!-- سجل المحادثة -->
+    <div class="chat-box" id="chatBox">
+        <div class="msg bot">أهلاً بك! اضغط على زر التحدث بالأسفل أو اكتب رسالتك وسأرد عليك فوراً.</div>
+    </div>
+
+    <!-- أدوات التحكم -->
+    <div class="controls">
+        <button class="mic-btn" id="micBtn">🎙️ اضغط للتحدث معي</button>
+        <div class="text-input-group">
+            <input type="text" id="textInput" placeholder="أو اكتب رسالتك هنا...">
+            <button class="send-btn" id="sendBtn">إرسال</button>
+        </div>
+    </div>
+
+    <script>
+        const avatar = document.getElementById('avatar');
+        const statusText = document.getElementById('statusText');
+        const chatBox = document.getElementById('chatBox');
+        const micBtn = document.getElementById('micBtn');
+        const textInput = document.getElementById('textInput');
+        const sendBtn = document.getElementById('sendBtn');
+
+        // إعداد التعرف على الصوت (Speech Recognition)
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        let recognition = null;
+        let isListening = false;
+
+        if (SpeechRecognition) {
+            recognition = new SpeechRecognition();
+            recognition.lang = 'ar-SA'; // يدعم العربية الفصحى واللهجات
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+
+            recognition.onstart = () => {
+                isListening = true;
+                avatar.className = 'avatar-container listening';
+                statusText.textContent = 'أنا أستمع إليك الآن... تحدث';
+                micBtn.textContent = '🛑 جاري الاستماع... (اضغط للإيقاف)';
+                micBtn.classList.add('active');
+            };
+
+            recognition.onresult = (event) => {
+                const userSpeech = event.results[0][0].transcript;
+                handleUserMessage(userSpeech);
+            };
+
+            recognition.onerror = (event) => {
+                stopListening();
+                if (event.error === 'not-allowed') {
+                    statusText.textContent = 'يرجى السماح بصلاحية المايكروفون من المتصفح';
+                } else {
+                    statusText.textContent = 'لم أسمعك بوضوح، حاول مرة أخرى';
+                }
+            };
+
+            recognition.onend = () => {
+                stopListening();
+            };
+        } else {
+            micBtn.style.display = 'none';
+            statusText.textContent = 'متصفحك لا يدعم الصوت، استخدم الكتابة بالأسفل';
+        }
+
+        function stopListening() {
+            isListening = false;
+            if (!avatar.classList.contains('speaking')) {
+                avatar.className = 'avatar-container';
+            }
+            micBtn.textContent = '🎙️ اضغط للتحدث معي';
+            micBtn.classList.remove('active');
+        }
+
+        // زر المايكروفون (ضغطة واحدة للتشغيل وضغطة للإيقاف)
+        micBtn.addEventListener('click', () => {
+            if (!recognition) return;
+            if (isListening) {
+                recognition.stop();
+            } else {
+                window.speechSynthesis.cancel(); // إيقاف أي كلام حالي
+                try {
+                    recognition.start();
+                } catch (e) {
+                    console.log(e);
+                }
+            }
+        });
+
+        // إرسال النص
+        sendBtn.addEventListener('click', () => {
+            const text = textInput.value.trim();
+            if (text) {
+                handleUserMessage(text);
+                textInput.value = '';
+            }
+        });
+
+        textInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendBtn.click();
+        });
+
+        // إضافة رسالة للشاشة
+        function addMessage(text, sender) {
+            const div = document.createElement('div');
+            div.className = `msg ${sender}`;
+            div.textContent = text;
+            chatBox.appendChild(div);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        // معالجة رسالة المستخدم وتوليد الرد
+        function handleUserMessage(text) {
+            addMessage(text, 'user');
+            const reply = generateSmartReply(text);
+            setTimeout(() => {
+                addMessage(reply, 'bot');
+                speakText(reply);
+            }, 400);
+        }
+
+        // عقل الشخصية (يمكنك إضافة ردود لا نهائية هنا)
+        function generateSmartReply(input) {
+            const msg = input.toLowerCase();
+
+            if (msg.includes('مرحبا') || msg.includes('أهلا') || msg.includes('السلام عليكم')) {
+                return 'أهلاً بك يا صديقي! يسعدني جداً التحدث معك. كيف حالك اليوم؟';
+            }
+            if (msg.includes('كيف حالك') || msg.includes('شلونك') || msg.includes('أخبارك')) {
+                return 'أنا بأفضل حال ما دمت بخير! كيف يمكنني مساعدتك اليوم؟';
+            }
+            if (msg.includes('من أنت') || msg.includes('اسمك')) {
+                return 'أنا مساعدك الذكي التفاعلي، تم برمجتي لأكون صديقك وأتحدث معك في أي وقت.';
+            }
+            if (msg.includes('الساعة') || msg.includes('الوقت')) {
+                const now = new Date();
+                return `الساعة الآن هي ${now.getHours()} و ${now.getMinutes()} دقيقة.`;
+            }
+            if (msg.includes('نكتة') || msg.includes('ضحكني')) {
+                return 'مرة مبرمج راح ينام، حط جنب راسه كاستين مي: وحدة مليانة عشان يشرب، ووحدة فاضية عشان إذا ما عطش!';
+            }
+            if (msg.includes('شكرا') || msg.includes('يسلمو')) {
+                return 'العفو يا غالي، أنا دائماً في خدمتك!';
+            }
+            if (msg.includes('باي') || msg.includes('مع السلامة')) {
+                return 'في أمان الله! أراك قريباً.';
+            }
+
+            // رد ذكي عام لأي جملة أخرى
+            return `سمعتك تقول: "${input}". أنا أتطور باستمرار، يمكنك برمجتي لأفهم هذه الجملة وأرد عليها بدقة أكبر!`;
+        }
+
+        // نطق الرد وتحريك الفم (Text-to-Speech)
+        function speakText(text) {
+            if (!('speechSynthesis' in window)) return;
+
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'ar-SA';
+            utterance.rate = 1.0; // سرعة الصوت
+            utterance.pitch = 1.0; // نبرة الصوت
+
+            utterance.onstart = () => {
+                avatar.className = 'avatar-container speaking';
+                statusText.textContent = 'يتحدث الآن...';
+            };
+
+            utterance.onend = () => {
+                avatar.className = 'avatar-container';
+                statusText.textContent = 'جاهز للتفاعل معك';
+            };
+
+            utterance.onerror = () => {
+                avatar.className = 'avatar-container';
+                statusText.textContent = 'جاهز للتفاعل معك';
+            };
+
+            window.speechSynthesis.speak(utterance);
+        }
+    </script>
+</body>
 </html>
