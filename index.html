@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>صديقي الذكي</title>
+<style>
+body { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif; background: #f0f2f5; }
+#character { width: 150px; height: 150px; background: #4a90e2; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.5rem; transition: transform 0.2s; }
+.talking { animation: bounce 0.5s infinite alternate; background: #2ecc71 !important; }
+@keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-20px); } }
+button { margin-top: 30px; padding: 15px 30px; font-size: 1.2rem; cursor: pointer; border-radius: 25px; border: none; background: #333; color: white; }
+</style>
+</head>
+<body>
+​<div id="character">أنا صديقك</div>
+<button id="btn">تحدث معي</button>
+​<script>
+const character = document.getElementById('character');
+const btn = document.getElementById('btn');
+​const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const recognition = new SpeechRecognition();
+recognition.lang = 'ar-SA';
+​recognition.onresult = async (event) => {
+const text = event.results[0][0].transcript;
+character.innerText = "أفكر...";
+​// محاكاة الرد (يمكنك ربطه بـ API لاحقاً)
+setTimeout(() => {
+speak("أهلاً بك! أنا مستمتع بحديثنا اليوم.");
+}, 1000);
+};
+​function speak(text) {
+const utterance = new SpeechSynthesisUtterance(text);
+utterance.lang = 'ar-SA';
+utterance.onstart = () => character.classList.add('talking');
+utterance.onend = () => {
+character.classList.remove('talking');
+character.innerText = "أنا صديقك";
+};
+window.speechSynthesis.speak(utterance);
+}
+​btn.onclick = () => {
+character.innerText = "أسمعك...";
+recognition.start();
+};
+</script>
+​</body>
+</html>
