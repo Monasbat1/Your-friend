@@ -11,7 +11,6 @@
 body { margin: 0; background: var(--bg); color: var(--text); padding: 16px; padding-bottom: 80px; }
 .container { max-width: 650px; margin: 0 auto; display: none; }
 
-/* شاشة تسجيل الدخول */
 #loginOverlay { position: fixed; inset: 0; background: #2d1b4e; z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; }
 .login-box { background: #fff; padding: 30px; border-radius: 20px; width: 100%; max-width: 380px; text-align: center; box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
 .login-box h2 { color: var(--primary); margin-top: 0; }
@@ -49,11 +48,10 @@ input:focus, textarea:focus { border-color: var(--primary); }
 </head>
 <body>
 
-<!-- شاشة تسجيل الدخول الآمنة (الكلمة لاتظهر ومخفية بنقاط) -->
 <div id="loginOverlay">
   <div class="login-box">
     <h2>🔐 لوحة التحكم المحمية</h2>
-    <p style="font-size:0.9rem; color:#666; margin-bottom:15px;">أدخل رمز المرور للدخول (الافتراضي: 1234)</p>
+    <p style="font-size:0.9rem; color:#666; margin-bottom:15px;">أدخل رمز المرور للدخول (الافتراضي: 19988)</p>
     <input type="password" id="passCode" placeholder="أدخل رمز المرور السري">
     <button type="button" onclick="checkPassword()">دخول</button>
     <p id="errorMsg" style="color:#e53e3e; font-size:0.85rem; margin-top:10px; display:none;">رمز المرور غير صحيح!</p>
@@ -68,12 +66,30 @@ input:focus, textarea:focus { border-color: var(--primary); }
     <div class="status-dot"><span class="dot"></span> بث مباشر</div>
   </header>
 
-  <!-- تغيير كلمة المرور -->
   <div class="box">
     <h2>🔑 تغيير رمز المرور الخاص بالأدمن</h2>
     <div class="row">
       <div class="field"><input type="password" id="newPass" placeholder="رمز المرور الجديد"></div>
       <div><button type="button" class="btn-success" style="width:100%; padding:10px;" onclick="changePassword()">تحديث الرمز</button></div>
+    </div>
+  </div>
+
+  <!-- قسم تواصل مع مصمم الكروت عبر واتساب -->
+  <div class="box">
+    <h2>💬 زر تواصل مع مصمم الكروت (واتساب)</h2>
+    <div class="field">
+      <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+        <input type="checkbox" id="designerWaEnabled" style="width:20px; height:20px;" onchange="saveAll()"> 
+        <b>تفعيل زر واتساب العائم في الدعوة</b>
+      </label>
+    </div>
+    <div class="field">
+      <label>رقم الهاتف مع رمز الدولة (مثال: 9639xxxxxxxx):</label>
+      <input type="text" id="designerWaNumber" placeholder="9639xxxxxxxx">
+    </div>
+    <div class="field">
+      <label>الرسالة التلقائية عند الضغط:</label>
+      <input type="text" id="designerWaText" value="مرحباً، أود الاستفسار عن تصميم كروت الدعوة">
     </div>
   </div>
 
@@ -84,16 +100,18 @@ input:focus, textarea:focus { border-color: var(--primary); }
       <button type="button" class="opt-btn" data-val="theme-emerald">🌿 الزمردي المقوّس</button>
       <button type="button" class="opt-btn" data-val="theme-blush">🌸 الوردي الناعم</button>
       <button type="button" class="opt-btn" data-val="theme-midnight">🌌 الكلاسيكي الليلي</button>
+      <button type="button" class="opt-btn" data-val="theme-goldlux">✨ الذهبي الفاخر</button>
     </div>
   </div>
 
   <div class="box">
-    <h2>✨ اختر المؤثر المتحرك (تطبيق فوري)</h2>
+    <h2>✨ اختر المؤثر المتحرك الجميل (تطبيق فوري)</h2>
     <div class="grid-btns" id="effectBtns">
       <button type="button" class="opt-btn active" data-val="hearts">❤️ قلوب متطايرة</button>
       <button type="button" class="opt-btn" data-val="petals">🌹 بتلات ورد متساقطة</button>
       <button type="button" class="opt-btn" data-val="gold">✨ نجوم وبريق ذهبي</button>
       <button type="button" class="opt-btn" data-val="confetti">🎉 قصاصات احتفالية</button>
+      <button type="button" class="opt-btn" data-val="glowstars">⭐ نجوم متلألئة مضيئة</button>
       <button type="button" class="opt-btn" data-val="none">🚫 إيقاف المؤثرات</button>
     </div>
   </div>
@@ -114,7 +132,6 @@ input:focus, textarea:focus { border-color: var(--primary); }
     </div>
   </div>
 
-  <!-- رفع الصور من الاستوديو مباشرة بدون روابط -->
   <div class="box">
     <h2>🖼️ اختيار الصور من الاستوديو</h2>
     <div class="field">
@@ -178,9 +195,8 @@ input:focus, textarea:focus { border-color: var(--primary); }
 <script>
 const DB_URL = "https://monasbat-7899c-default-rtdb.firebaseio.com";
 
-let adminPassword = "1234"; // الرمز الافتراضي
+let adminPassword = "19988";
 
-// التحقق من رمز الدخول
 function checkPassword() {
   const entered = document.getElementById("passCode").value;
   if (entered === adminPassword) {
@@ -193,17 +209,15 @@ function checkPassword() {
   }
 }
 
-// تغيير كلمة المرور وحفظها في قاعدة البيانات
 function changePassword() {
   const newPass = document.getElementById("newPass").value;
   if (!newPass) { alert("الرجاء إدخال كلمة المرور الجديدة"); return; }
   adminPassword = newPass;
   patchDB({ adminPass: newPass });
-  alert("تم تغيير كلمة المرور بنجاح ✓");
+  alert("تم تغيير كلمة المرور بنجاح وتعطيل الرمز القديم ✓");
   document.getElementById("newPass").value = "";
 }
 
-// تحويل الصورة المختارة من الاستوديو إلى كود مباشر وتخزينها
 function encodeImage(input, targetId) {
   if (input.files && input.files[0]) {
     const reader = new FileReader();
@@ -268,9 +282,11 @@ function saveAll() {
     "groomFirst", "groomLast", "brideFirst", "brideLast",
     "coverTitle", "coverSubtitle", "ayahText", "poemText", "footerPhrase",
     "dayName", "dayNum", "yearMonth", "timeText", "countdownISO",
-    "hallCity", "hallAddress", "hallMap", "zaffaAddress", "zaffaTime", "zaffaMap"
+    "hallCity", "hallAddress", "hallMap", "zaffaAddress", "zaffaTime", "zaffaMap",
+    "designerWaNumber", "designerWaText"
   ];
   const payload = { ...currentState };
+  payload.designerWaEnabled = document.getElementById("designerWaEnabled").checked;
   ids.forEach(id => {
     const el = document.getElementById(id);
     if (el && el.value !== "") {
@@ -287,6 +303,11 @@ function loadAdminData() {
       if (!data) return;
       currentState = { ...currentState, ...data };
       if (data.adminPass) adminPassword = data.adminPass;
+      
+      if (data.designerWaEnabled !== undefined) {
+        document.getElementById("designerWaEnabled").checked = data.designerWaEnabled;
+      }
+
       Object.keys(data).forEach(k => {
         const el = document.getElementById(k);
         if (el) {
