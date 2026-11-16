@@ -25,7 +25,7 @@ body:not(.open){overflow:hidden}
 #cv .t{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#fdf6e2;text-align:center;pointer-events:none;transition:opacity .6s}
 #cv.go .t{opacity:0}
 
-/* الصورة الأولى كخلفية لفتح الدعوة مع إضاءة خافتة وبروز */
+/* خلفية بوابة فتح الدعوة */
 #cv .ph{position:absolute;inset:0;z-index:0;background:url('https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;transition:opacity 1.8s ease,transform 1.8s ease;filter: brightness(0.45) contrast(1.1);transform:scale(1.03)}
 #cv.go .ph{opacity:0;transform:scale(1.15)}
 
@@ -41,10 +41,14 @@ body:not(.open){overflow:hidden}
 
 /* بطاقة الدعوة بعد الفتح */
 main{max-width:470px;margin:0 auto;padding:26px 12px 40px}
-.card{position:relative;background:var(--cream);border-radius:235px 235px 24px 24px;padding:92px 24px 120px;text-align:center;overflow:hidden;box-shadow:0 25px 70px rgba(10,5,20,0.6), inset 0 0 50px rgba(212,175,55,0.12);border:1px solid rgba(212,175,55,0.35)}
-.card>*:not(svg){position:relative;z-index:1}
-.fl{position:absolute;width:150px;height:150px;z-index:0}
-.a{top:-8px;right:-14px}.b{top:-8px;left:-14px;transform:scaleX(-1)}.c{bottom:-8px;right:-14px;transform:scaleY(-1)}.d{bottom:-8px;left:-14px;transform:scale(-1)}
+.card{position:relative;background:var(--cream);border-radius:30px;padding:50px 24px 60px;text-align:center;overflow:hidden;box-shadow:0 25px 70px rgba(10,5,20,0.6), inset 0 0 50px rgba(212,175,55,0.12);border:1px solid rgba(212,175,55,0.35)}
+.card>*:not(.fl){position:relative;z-index:1}
+
+/* زخارف الورود الحقيقية في الزوايا */
+.fl{position:absolute;width:110px;height:110px;z-index:2;pointer-events:none;background-size:contain;background-repeat:no-repeat;opacity:0.9;}
+.a{top:10px;right:10px;background-image:url('https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=300&q=80');border-radius:50%;mix-blend-mode:multiply;}
+.b{top:10px;left:10px;background-image:url('https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=300&q=80');border-radius:50%;transform:scaleX(-1);mix-blend-mode:multiply;}
+
 .r{opacity:0}
 .open .r{animation:up .9s both var(--d,0s)}
 @keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
@@ -62,9 +66,9 @@ main{max-width:470px;margin:0 auto;padding:26px 12px 40px}
 .g{color:#8a7458}.br{color:#5f7a45}
 .amp{font:400 4.2rem/1 Amiri,serif;color:var(--gold);text-shadow:0 2px 10px rgba(197,168,109,0.3)}
 
-/* الصورة الثانية داخل بطاقة الدعوة بإطار مضيء وفاخر */
-.pic{margin:22px auto 4px;width:88%;aspect-ratio:4/3.2;padding:6px;border-radius:999px 999px 20px 20px;background:linear-gradient(150deg,#f3d37d,#fff3cf 45%,#9c7624);box-shadow:0 15px 35px rgba(120,70,140,0.35), 0 0 15px rgba(212,175,55,0.4)}
-.pic div{height:100%;overflow:hidden;border-radius:999px 999px 14px 14px}
+/* الصورة البارزة ذات الإطار المجسم ثلاثي الأبعاد (3D) */
+.pic{margin:28px auto 10px;width:90%;aspect-ratio:4/3.2;padding:10px;border-radius:24px;background:linear-gradient(135deg,#ffe89c 0%,#d4af37 50%,#8c6218 100%);box-shadow:0 20px 45px rgba(42,27,78,0.35), 0 0 25px rgba(212,175,55,0.6), inset 0 2px 6px rgba(255,255,255,0.8);border:3px solid #fff;transform: perspective(1000px) translateZ(10px);}
+.pic div{height:100%;overflow:hidden;border-radius:16px;box-shadow:inset 0 0 15px rgba(0,0,0,0.2)}
 .pic img{display:block;width:100%;height:100%;object-fit:cover;animation:kb 16s ease-in-out infinite alternate}
 @keyframes kb{to{transform:scale(1.08)}}
 
@@ -123,14 +127,8 @@ main{max-width:470px;margin:0 auto;padding:26px 12px 40px}
 </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-<symbol id="fw" viewBox="-50 -50 100 100"><g fill="currentColor" fill-opacity=".88"><ellipse cy="-26" rx="15" ry="24"/><ellipse cy="-26" rx="15" ry="24" transform="rotate(72)"/><ellipse cy="-26" rx="15" ry="24" transform="rotate(144)"/><ellipse cy="-26" rx="15" ry="24" transform="rotate(216)"/><ellipse cy="-26" rx="15" ry="24" transform="rotate(288)"/></g><circle r="9" fill="#f3d58a"/></symbol>
-<symbol id="lf" viewBox="-20 -50 40 100"><ellipse rx="11" ry="40" fill="#7e9a6a" fill-opacity=".8"/></symbol>
-<g id="cl"><use href="#lf" x="10" y="40" width="30" height="75" transform="rotate(-50 25 77)"/><use href="#lf" x="60" y="10" width="30" height="75" transform="rotate(30 75 47)"/><use href="#lf" x="90" y="70" width="26" height="65" transform="rotate(70 103 100)"/><use href="#fw" x="-6" y="-4" width="84" height="84" style="color:#8e6fc4"/><use href="#fw" x="64" y="4" width="64" height="64" style="color:#e5a0a6"/><use href="#fw" x="34" y="62" width="52" height="52" style="color:#b9a3de"/><use href="#fw" x="104" y="58" width="40" height="40" style="color:#f6e7d4"/></g>
-</defs></svg>
 
 <div id="cv">
-<!-- خلفية بوابة فتح الدعوة (الصورة الأولى مع إضاءة خافتة وبروز) -->
 <div class="ph" role="img" aria-label="خلفية بوابة الدعوة"></div>
 <div class="h"></div><div class="h"></div>
 <div class="t">
@@ -143,10 +141,8 @@ main{max-width:470px;margin:0 auto;padding:26px 12px 40px}
 </div>
 
 <main><article class="card">
-<svg class="fl a" viewBox="0 0 150 150" aria-hidden="true"><use href="#cl"/></svg>
-<svg class="fl b" viewBox="0 0 150 150" aria-hidden="true"><use href="#cl"/></svg>
-<svg class="fl c" viewBox="0 0 150 150" aria-hidden="true"><use href="#cl"/></svg>
-<svg class="fl d" viewBox="0 0 150 150" aria-hidden="true"><use href="#cl"/></svg>
+<div class="fl a"></div>
+<div class="fl b"></div>
 
 <h1 class="ayah r" style="--d:.5s">وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً</h1>
 <p class="poem r" style="--d:.9s">إن السرور إذا تشارك ضوعفت<br>بسماته مع زمرة الأحبة</p>
@@ -160,16 +156,16 @@ main{max-width:470px;margin:0 auto;padding:26px 12px 40px}
 </div>
 <p class="inv r" style="--d:2.1s">وذلك بمشيئة الله تعالى</p>
 
-<!-- الصورة الثانية داخل بطاقة الدعوة بعد فتحها -->
+<!-- الصورة البارزة بتصميم ثلاثي الأبعاد (تبادل الخواتم) -->
 <figure class="pic r" style="--d:2.4s">
-  <div><img alt="صورة العروسين" src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=800&q=80"></div>
+  <div><img alt="تبادل الخواتم" src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=800&q=80"></div>
 </figure>
 
 <div class="when r" style="--d:2.9s"><span>يوم الخميس</span><div><div class="m">19</div><b class="y">2026/11</b></div><span>06 مساءً</span></div>
 <div class="cd r" style="--d:3.2s" aria-live="off"><div><b id="dd">0</b><small>يوم</small></div><div><b id="hh">0</b><small>ساعة</small></div><div><b id="mm">0</b><small>دقيقة</small></div><div><b id="ss">0</b><small>ثانية</small></div></div>
 
 <section class="place r" style="--d:3.5s">
-<svg viewBox="0 0 24 24" fill="#d4af37" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.500a2.5 2.5 0 0 1 0 5z"/></svg>
+<svg viewBox="0 0 24 24" fill="#d4af37" aria-hidden="true" style="width:34px;height:34px"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.500a2.5 2.5 0 0 1 0 5z"/></svg>
 <h3>معرة النعمان</h3><p>صالة الجمال ، الحارة القبلية ، كرم القصير</p>
 <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=%D8%B5%D8%A7%D9%84%D8%A9%20%D8%A7%D9%84%D8%AC%D9%85%D8%A7%D9%84%20%D9%85%D8%B9%D8%B1%D8%A9%20%D8%A7%D9%84%D9%86%D8%B9%D9%85%D8%A7%D9%86">عرض الموقع على الخريطة</a>
 </section>
