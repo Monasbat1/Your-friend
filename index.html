@@ -25,6 +25,8 @@
         .header {
             text-align: center;
             margin-top: 10px;
+            width: 100%;
+            max-width: 450px;
         }
         .header h1 {
             font-size: 1.5rem;
@@ -38,15 +40,43 @@
             height: 20px;
         }
 
+        /* شريط إدخال المفتاح */
+        .api-bar {
+            display: flex;
+            gap: 5px;
+            margin-top: 10px;
+            width: 100%;
+        }
+        .api-bar input {
+            flex: 1;
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: #38bdf8;
+            font-size: 0.85rem;
+            outline: none;
+            direction: ltr;
+        }
+        .api-bar button {
+            background: #334155;
+            color: white;
+            border: none;
+            padding: 0 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
         /* تصميم الشخصية (Avatar) */
         .avatar-container {
             position: relative;
-            width: 220px;
-            height: 220px;
+            width: 200px;
+            height: 200px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 20px 0;
+            margin: 15px 0;
         }
         .glow-ring {
             position: absolute;
@@ -58,8 +88,8 @@
             transition: all 0.3s ease;
         }
         .avatar-face {
-            width: 190px;
-            height: 190px;
+            width: 170px;
+            height: 170px;
             background: linear-gradient(145deg, #1e293b, #0f172a);
             border-radius: 50%;
             display: flex;
@@ -69,15 +99,16 @@
             position: relative;
             z-index: 2;
             box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+            overflow: hidden;
         }
         .eyes {
             display: flex;
-            gap: 35px;
-            margin-bottom: 25px;
+            gap: 30px;
+            margin-bottom: 20px;
         }
         .eye {
-            width: 24px;
-            height: 32px;
+            width: 22px;
+            height: 28px;
             background-color: #38bdf8;
             border-radius: 50%;
             box-shadow: 0 0 15px #38bdf8;
@@ -85,7 +116,7 @@
             transition: all 0.2s;
         }
         .mouth {
-            width: 45px;
+            width: 40px;
             height: 10px;
             background-color: #38bdf8;
             border-radius: 10px;
@@ -102,6 +133,12 @@
         .listening .eye, .listening .mouth {
             background-color: #ef4444;
             box-shadow: 0 0 15px #ef4444;
+        }
+
+        .thinking .glow-ring {
+            border-color: #f59e0b;
+            box-shadow: 0 0 35px rgba(245, 158, 11, 0.7);
+            animation: pulse 0.8s infinite;
         }
 
         .speaking .glow-ring {
@@ -129,7 +166,7 @@
         }
         @keyframes talk {
             0% { height: 8px; border-radius: 10px; }
-            100% { height: 28px; border-radius: 50%; }
+            100% { height: 26px; border-radius: 50%; }
         }
 
         /* صندوق المحادثة */
@@ -140,8 +177,8 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             padding: 15px;
-            min-height: 110px;
-            max-height: 180px;
+            min-height: 120px;
+            max-height: 200px;
             overflow-y: auto;
             margin-bottom: 15px;
             display: flex;
@@ -179,15 +216,14 @@
             background: linear-gradient(135deg, #0284c7, #2563eb);
             color: white;
             border: none;
-            padding: 15px;
+            padding: 14px;
             border-radius: 50px;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: bold;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
             transition: transform 0.1s, background 0.3s;
             user-select: none;
-            -webkit-user-select: none;
         }
         .mic-btn:active {
             transform: scale(0.97);
@@ -226,6 +262,10 @@
     <div class="header">
         <h1>صديقك الذكي</h1>
         <div class="status" id="statusText">جاهز للتفاعل معك</div>
+        <div class="api-bar">
+            <input type="password" id="apiKeyInput" placeholder="ضع مفتاح Groq API هنا (gsk_...)">
+            <button id="saveKeyBtn">حفظ</button>
+        </div>
     </div>
 
     <!-- الشخصية التفاعلية -->
@@ -242,14 +282,14 @@
 
     <!-- سجل المحادثة -->
     <div class="chat-box" id="chatBox">
-        <div class="msg bot">أهلاً بك! اضغط على زر التحدث بالأسفل أو اكتب رسالتك وسأرد عليك فوراً.</div>
+        <div class="msg bot">أهلاً بك! ضع مفتاح Groq في الأعلى ثم تحدث معي أو اكتب رسالتك.</div>
     </div>
 
     <!-- أدوات التحكم -->
     <div class="controls">
         <button class="mic-btn" id="micBtn">🎙️ اضغط للتحدث معي</button>
         <div class="text-input-group">
-            <input type="text" id="textInput" placeholder="أو اكتب رسالتك هنا...">
+            <input type="text" id="textInput" placeholder="اكتب رسالتك هنا...">
             <button class="send-btn" id="sendBtn">إرسال</button>
         </div>
     </div>
@@ -261,22 +301,46 @@
         const micBtn = document.getElementById('micBtn');
         const textInput = document.getElementById('textInput');
         const sendBtn = document.getElementById('sendBtn');
+        const apiKeyInput = document.getElementById('apiKeyInput');
+        const saveKeyBtn = document.getElementById('saveKeyBtn');
 
-        // إعداد التعرف على الصوت (Speech Recognition)
+        // استرجاع المفتاح المحفوظ في المتصفح إن وجد
+        let GROQ_API_KEY = localStorage.getItem('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') || '';
+        if (GROQ_API_KEY) {
+            apiKeyInput.value = GROQ_API_KEY;
+        }
+
+        saveKeyBtn.addEventListener('click', () => {
+            const key = apiKeyInput.value.trim();
+            if (key.startsWith('gsk_')) {
+                GROQ_API_KEY = key;
+                localStorage.setItem('groq_api_key', key);
+                statusText.textContent = 'تم حفظ المفتاح بنجاح!';
+            } else {
+                statusText.textContent = 'المفتاح غير صحيح، يجب أن يبدأ بـ gsk_';
+            }
+        });
+
+        // ذاكرة المحادثة
+        let conversationHistory = [
+            { role: "system", content: "أنت مساعد ذكي ودود تتحدث باللغة العربية بطلاقة وبأسلوب مختصر ومباشر مناسب للمحادثات الصوتية." }
+        ];
+
+        // إعداد التعرف على الصوت
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         let recognition = null;
         let isListening = false;
 
         if (SpeechRecognition) {
             recognition = new SpeechRecognition();
-            recognition.lang = 'ar-SA'; // يدعم العربية الفصحى واللهجات
+            recognition.lang = 'ar-SA';
             recognition.interimResults = false;
             recognition.maxAlternatives = 1;
 
             recognition.onstart = () => {
                 isListening = true;
                 avatar.className = 'avatar-container listening';
-                statusText.textContent = 'أنا أستمع إليك الآن... تحدث';
+                statusText.textContent = 'أنا أستمع إليك الآن...';
                 micBtn.textContent = '🛑 جاري الاستماع... (اضغط للإيقاف)';
                 micBtn.classList.add('active');
             };
@@ -288,46 +352,36 @@
 
             recognition.onerror = (event) => {
                 stopListening();
-                if (event.error === 'not-allowed') {
-                    statusText.textContent = 'يرجى السماح بصلاحية المايكروفون من المتصفح';
-                } else {
-                    statusText.textContent = 'لم أسمعك بوضوح، حاول مرة أخرى';
-                }
+                statusText.textContent = event.error === 'not-allowed' 
+                    ? 'يرجى السماح بصلاحية المايكروفون' 
+                    : 'لم أسمعك بوضوح، حاول مرة أخرى';
             };
 
-            recognition.onend = () => {
-                stopListening();
-            };
+            recognition.onend = () => stopListening();
         } else {
             micBtn.style.display = 'none';
-            statusText.textContent = 'متصفحك لا يدعم الصوت، استخدم الكتابة بالأسفل';
+            statusText.textContent = 'متصفحك لا يدعم الصوت، استخدم الكتابة';
         }
 
         function stopListening() {
             isListening = false;
-            if (!avatar.classList.contains('speaking')) {
+            if (!avatar.classList.contains('speaking') && !avatar.classList.contains('thinking')) {
                 avatar.className = 'avatar-container';
             }
             micBtn.textContent = '🎙️ اضغط للتحدث معي';
             micBtn.classList.remove('active');
         }
 
-        // زر المايكروفون (ضغطة واحدة للتشغيل وضغطة للإيقاف)
         micBtn.addEventListener('click', () => {
             if (!recognition) return;
             if (isListening) {
                 recognition.stop();
             } else {
-                window.speechSynthesis.cancel(); // إيقاف أي كلام حالي
-                try {
-                    recognition.start();
-                } catch (e) {
-                    console.log(e);
-                }
+                window.speechSynthesis.cancel();
+                try { recognition.start(); } catch (e) {}
             }
         });
 
-        // إرسال النص
         sendBtn.addEventListener('click', () => {
             const text = textInput.value.trim();
             if (text) {
@@ -340,7 +394,6 @@
             if (e.key === 'Enter') sendBtn.click();
         });
 
-        // إضافة رسالة للشاشة
         function addMessage(text, sender) {
             const div = document.createElement('div');
             div.className = `msg ${sender}`;
@@ -349,72 +402,68 @@
             chatBox.scrollTop = chatBox.scrollHeight;
         }
 
-        // معالجة رسالة المستخدم وتوليد الرد
-        function handleUserMessage(text) {
+        // الاتصال الفعلي بـ Groq API
+        async function handleUserMessage(text) {
             addMessage(text, 'user');
-            const reply = generateSmartReply(text);
-            setTimeout(() => {
-                addMessage(reply, 'bot');
-                speakText(reply);
-            }, 400);
+
+            if (!GROQ_API_KEY) {
+                const warning = 'يرجى إدخال مفتاح Groq API الصحيح (يبدأ بـ gsk_) في الخانة بالأعلى أولاً.';
+                addMessage(warning, 'bot');
+                speakText(warning);
+                return;
+            }
+
+            avatar.className = 'avatar-container thinking';
+            statusText.textContent = 'جاري التفكير...';
+            conversationHistory.push({ role: "user", content: text });
+
+            try {
+                const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${GROQ_API_KEY}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        model: 'llama-3.3-70b-versatile',
+                        messages: conversationHistory,
+                        temperature: 0.7,
+                        max_tokens: 300
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error?.message || 'خطأ في الاتصال بالخادم');
+                }
+
+                const botReply = data.choices[0].message.content;
+                conversationHistory.push({ role: "assistant", content: botReply });
+                
+                addMessage(botReply, 'bot');
+                speakText(botReply);
+
+            } catch (error) {
+                avatar.className = 'avatar-container';
+                statusText.textContent = 'حدث خطأ في الاتصال';
+                addMessage(`خطأ: ${error.message}`, 'bot');
+            }
         }
 
-        // عقل الشخصية (يمكنك إضافة ردود لا نهائية هنا)
-        function generateSmartReply(input) {
-            const msg = input.toLowerCase();
-
-            if (msg.includes('مرحبا') || msg.includes('أهلا') || msg.includes('السلام عليكم')) {
-                return 'أهلاً بك يا صديقي! يسعدني جداً التحدث معك. كيف حالك اليوم؟';
-            }
-            if (msg.includes('كيف حالك') || msg.includes('شلونك') || msg.includes('أخبارك')) {
-                return 'أنا بأفضل حال ما دمت بخير! كيف يمكنني مساعدتك اليوم؟';
-            }
-            if (msg.includes('من أنت') || msg.includes('اسمك')) {
-                return 'أنا مساعدك الذكي التفاعلي، تم برمجتي لأكون صديقك وأتحدث معك في أي وقت.';
-            }
-            if (msg.includes('الساعة') || msg.includes('الوقت')) {
-                const now = new Date();
-                return `الساعة الآن هي ${now.getHours()} و ${now.getMinutes()} دقيقة.`;
-            }
-            if (msg.includes('نكتة') || msg.includes('ضحكني')) {
-                return 'مرة مبرمج راح ينام، حط جنب راسه كاستين مي: وحدة مليانة عشان يشرب، ووحدة فاضية عشان إذا ما عطش!';
-            }
-            if (msg.includes('شكرا') || msg.includes('يسلمو')) {
-                return 'العفو يا غالي، أنا دائماً في خدمتك!';
-            }
-            if (msg.includes('باي') || msg.includes('مع السلامة')) {
-                return 'في أمان الله! أراك قريباً.';
-            }
-
-            // رد ذكي عام لأي جملة أخرى
-            return `سمعتك تقول: "${input}". أنا أتطور باستمرار، يمكنك برمجتي لأفهم هذه الجملة وأرد عليها بدقة أكبر!`;
-        }
-
-        // نطق الرد وتحريك الفم (Text-to-Speech)
         function speakText(text) {
             if (!('speechSynthesis' in window)) return;
-
             window.speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'ar-SA';
-            utterance.rate = 1.0; // سرعة الصوت
-            utterance.pitch = 1.0; // نبرة الصوت
-
             utterance.onstart = () => {
                 avatar.className = 'avatar-container speaking';
                 statusText.textContent = 'يتحدث الآن...';
             };
-
-            utterance.onend = () => {
+            utterance.onend = utterance.onerror = () => {
                 avatar.className = 'avatar-container';
                 statusText.textContent = 'جاهز للتفاعل معك';
             };
-
-            utterance.onerror = () => {
-                avatar.className = 'avatar-container';
-                statusText.textContent = 'جاهز للتفاعل معك';
-            };
-
             window.speechSynthesis.speak(utterance);
         }
     </script>
