@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>دعوة زفاف محمود عدي</title>
+<title>دعوة زفاف</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@700&family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700&display=swap">
 <style>
 :root{
@@ -11,41 +11,25 @@
   --cream:#fffdfb; --ink:#5a4a3f; --gold:#d4af37; --navy:#1f4e6e;
   --rose:#c77d88; --orange:#df6430; --deep:#2a1b4e; --card-radius:30px;
 }
-/* الثيم الملكي الذهبي */
-body.theme-royal {
-  --bg:radial-gradient(circle at 50% 25%, #2d1b4e 0%, #120c1f 75%);
-  --cream:#fffdfb; --ink:#5a4a3f; --gold:#d4af37; --orange:#df6430; --deep:#2a1b4e; --card-radius:30px;
-}
-/* الثيم الزمردي الفاخر */
-body.theme-emerald {
-  --bg:radial-gradient(circle at 50% 25%, #0f382a 0%, #061812 75%);
-  --cream:#f7fbf9; --ink:#2c4239; --gold:#c5a059; --orange:#1f6e50; --deep:#0f382a; --card-radius:220px 220px 24px 24px;
-}
-/* الثيم الوردي الناعم */
-body.theme-blush {
-  --bg:radial-gradient(circle at 50% 25%, #592638 0%, #240c15 75%);
-  --cream:#fff9fa; --ink:#5c3d46; --gold:#d48c9c; --orange:#b84b68; --deep:#592638; --card-radius:36px;
-}
-/* الثيم الكلاسيكي الليلي */
-body.theme-midnight {
-  --bg:radial-gradient(circle at 50% 25%, #16243d 0%, #090e1a 75%);
-  --cream:#f4f7fb; --ink:#26344a; --gold:#b89758; --orange:#2c5282; --deep:#16243d; --card-radius:18px;
-}
+body.theme-royal { --bg:radial-gradient(circle at 50% 25%, #2d1b4e 0%, #120c1f 75%); --cream:#fffdfb; --gold:#d4af37; --card-radius:30px; }
+body.theme-emerald { --bg:radial-gradient(circle at 50% 25%, #0f382a 0%, #061812 75%); --cream:#f7fbf9; --gold:#c5a059; --card-radius:220px 220px 24px 24px; }
+body.theme-blush { --bg:radial-gradient(circle at 50% 25%, #592638 0%, #240c15 75%); --cream:#fff9fa; --gold:#d48c9c; --card-radius:36px; }
+body.theme-midnight { --bg:radial-gradient(circle at 50% 25%, #16243d 0%, #090e1a 75%); --cream:#f4f7fb; --gold:#b89758; --card-radius:18px; }
+body.theme-goldlux { --bg:radial-gradient(circle at 50% 25%, #3d2c16 0%, #140e06 75%); --cream:#fffcf5; --gold:#e6c567; --card-radius:40px; }
 
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);font-family:Tajawal,Tahoma,sans-serif;color:var(--ink);line-height:1.7;min-height:100vh;transition:background .6s ease}
 body:not(.open){overflow:hidden}
 
-/* الغلاف */
 #cv{position:fixed;inset:0;z-index:20;display:flex;overflow:hidden}
-#cv .h{flex:1;position:relative;z-index:1;background:linear-gradient(180deg,rgba(25,14,40,.85),rgba(12,7,25,.95));transition:transform 1.6s cubic-bezier(.7,0,.2,1)}
+#cv .h{flex:1;position:relative;z-index:1;background:linear-gradient(180deg,rgba(25,14,40,.6),rgba(12,7,25,.8));transition:transform 1.6s cubic-bezier(.7,0,.2,1)}
 #cv .h:first-child{border-left:2px solid var(--gold);transform-origin:right}
 #cv .h:nth-child(2){border-right:2px solid var(--gold)}
 #cv.go .h:first-child{transform:translateX(100%)}
 #cv.go .h:nth-child(2){transform:translateX(-100%)}
 #cv .t{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#fdf6e2;text-align:center;pointer-events:none;transition:opacity .6s;z-index:2;text-shadow:0 4px 20px rgba(0,0,0,0.85)}
 #cv.go .t{opacity:0}
-#cv .ph{position:absolute;inset:0;z-index:0;background:#120c1f center/cover no-repeat;transition:opacity 1.8s ease,transform 1.8s ease;filter:brightness(0.45) contrast(1.1);transform:scale(1.03)}
+#cv .ph{position:absolute;inset:0;z-index:0;background:#120c1f center/cover no-repeat;transition:opacity 1.8s ease,transform 1.8s ease;filter:brightness(0.65) contrast(1.15);transform:scale(1.03)}
 #cv.go .ph{opacity:0;transform:scale(1.15)}
 #cv .t small{font-size:1.15rem;letter-spacing:.08em;color:#e8d093}
 #cv .t b{font:700 2.8rem/1.3 "Aref Ruqaa",serif;color:#fff}
@@ -53,7 +37,6 @@ body:not(.open){overflow:hidden}
 .seal{pointer-events:auto;margin-top:24px;width:110px;height:110px;border-radius:50%;border:2px solid #f6e3b4;background:radial-gradient(circle at 35% 30%,#f5dc8c,#9e7722);color:#211403;font:700 1.4rem "Aref Ruqaa",serif;cursor:pointer;box-shadow:0 0 25px rgba(212,175,55,0.45),0 0 0 10px rgba(246,227,180,0.15);animation:pl 2.2s ease-in-out infinite}
 @keyframes pl{50%{box-shadow:0 0 35px rgba(212,175,55,0.7),0 0 0 20px rgba(246,227,180,0)}}
 
-/* البطاقة */
 main{max-width:470px;margin:0 auto;padding:26px 12px 40px}
 .card{position:relative;background:var(--cream);border-radius:var(--card-radius);padding:60px 24px 60px;text-align:center;overflow:hidden;box-shadow:0 25px 70px rgba(10,5,20,0.6),inset 0 0 50px rgba(212,175,55,0.12);border:1px solid var(--gold);transition:all .6s ease}
 .card>*:not(.fl){position:relative;z-index:1}
@@ -78,7 +61,6 @@ main{max-width:470px;margin:0 auto;padding:26px 12px 40px}
 .g{color:#8a7458}.br{color:#5f7a45}
 .amp{font:400 4.2rem/1 Amiri,serif;color:var(--gold)}
 
-/* إطار الصورة البارز */
 .pic{margin:28px auto 10px;width:90%;aspect-ratio:4/3.2;padding:10px;border-radius:24px;background:linear-gradient(135deg,#ffe89c 0%,var(--gold) 50%,#8c6218 100%);box-shadow:0 20px 45px rgba(0,0,0,0.3),0 0 25px rgba(212,175,55,0.5);border:3px solid #fff}
 .pic div{height:100%;overflow:hidden;border-radius:16px}
 .pic img{display:block;width:100%;height:100%;object-fit:cover;animation:kb 16s ease-in-out infinite alternate}
@@ -106,11 +88,35 @@ main{max-width:470px;margin:0 auto;padding:26px 12px 40px}
 #expiredScreen{position:fixed;inset:0;background:#120c1f;color:#fff;z-index:9999;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px}
 #expiredScreen h2{font-family:'Aref Ruqaa',serif;font-size:2.2rem;color:var(--gold);margin-bottom:10px}
 
-/* المؤثرات المتحركة */
+/* أيقونة واتساب العائمة للمصمم (تظهر وتختفي من لوحة الأدمن) */
+.designer-whatsapp {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 99;
+  background: #25d366;
+  color: #fff;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+  text-decoration: none;
+  font-size: 26px;
+  transition: transform 0.3s ease;
+  display: none; /* افتراضياً مخفية حتى يتم تفعيلها من الأدمن */
+}
+.designer-whatsapp:hover {
+  transform: scale(1.1);
+}
+
 .fx-item{position:fixed;z-index:10;pointer-events:none;user-select:none}
 @keyframes fall{0%{top:-30px;opacity:1}100%{top:110vh;transform:translateX(var(--x)) rotate(540deg);opacity:0}}
 @keyframes rise{0%{bottom:-30px;opacity:0;transform:scale(.6)}15%{opacity:.95}100%{bottom:110vh;transform:translateX(var(--x)) scale(1.2);opacity:0}}
 @keyframes sparkle{0%,100%{opacity:0;transform:scale(0.3)}50%{opacity:1;transform:scale(1.3)}}
+@keyframes floatGlow{0%,100%{transform:translateY(0) scale(1);opacity:0.8}50%{transform:translateY(-20px) scale(1.2);opacity:1}}
 .ch{font-style:normal;font-size:1.7rem;color:#f2a3b5;animation:hb 1.8s ease-in-out infinite}
 @keyframes hb{0%,100%{transform:scale(1)}14%{transform:scale(1.15)}28%{transform:scale(1)}42%{transform:scale(1.1)}}
 </style>
@@ -121,6 +127,11 @@ main{max-width:470px;margin:0 auto;padding:26px 12px 40px}
   <h2>انتهت صلاحية الدعوة</h2>
   <p id="expiredMsg">عذراً، لقد انقضت مدة عرض هذه الدعوة وتم إغلاقها تلقائياً.</p>
 </div>
+
+<!-- زر واتساب العائم لتواصل المصمم -->
+<a id="designerWaBtn" href="#" target="_blank" class="designer-whatsapp" title="تواصل مع مصمم الكروت">
+  <svg viewBox="0 0 24 24" width="28" height="28" fill="#ffffff"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+</a>
 
 <div id="cv">
   <div class="ph" id="coverImg" style="background-image:url('https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=1200&q=80')"></div>
@@ -233,6 +244,9 @@ function spawnEffect() {
   } else if (currentEffect === "confetti") {
     const colors = ["#d4af37", "#e46a86", "#4fd1c5", "#f6ad55"];
     el.style.cssText = `left:${left};width:8px;height:14px;background:${colors[Math.floor(Math.random()*4)]};--x:${xMove};animation:fall ${4+Math.random()*3}s linear forwards`;
+  } else if (currentEffect === "glowstars") {
+    el.textContent = "⭐";
+    el.style.cssText = `left:${left};top:${Math.random()*100}vh;font-size:${14+Math.random()*14}px;animation:floatGlow ${3+Math.random()*3}s ease-in-out infinite`;
   }
   document.body.appendChild(el);
   setTimeout(() => el.remove(), 11000);
@@ -251,6 +265,15 @@ function applyConfig(data) {
 
   document.body.className = (document.body.classList.contains("open") ? "open " : "") + (data.theme || "theme-royal");
   currentEffect = data.effect || "hearts";
+
+  // التحكم بزر واتساب مصمم الكروت
+  if (data.designerWaEnabled && data.designerWaNumber) {
+    const textMsg = encodeURIComponent(data.designerWaText || "مرحباً، أود الاستفسار عن تصميم كروت الدعوة");
+    $("designerWaBtn").href = `https://wa.me/${data.designerWaNumber}?text=${textMsg}`;
+    $("designerWaBtn").style.display = "flex";
+  } else {
+    $("designerWaBtn").style.display = "none";
+  }
 
   if(data.coverTitle) $("coverTitle").textContent = data.coverTitle;
   if(data.coverSubtitle) $("coverSubtitle").textContent = data.coverSubtitle;
