@@ -3,293 +3,340 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>دعوة زفاف محمود عدي</title>
+<title>دعوة زفاف</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@700&family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700&display=swap">
 <style>
-:root{--bg:#120c1f;--cream:#fffdfb;--ink:#5a4a3f;--gold:#d4af37;--navy:#1f4e6e;--rose:#c77d88;--orange:#df6430;--deep:#2a1b4e;
-box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0c0714;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#0c0714;color-scheme:dark}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
+:root{
+  --bg:radial-gradient(circle at 50% 25%, #2d1b4e 0%, #120c1f 75%);
+  --cream:#fffdfb; --ink:#5a4a3f; --gold:#d4af37; --navy:#1f4e6e;
+  --rose:#c77d88; --orange:#df6430; --deep:#2a1b4e; --card-radius:30px;
+}
+/* الثيم الملكي الذهبي */
+body.theme-royal {
+  --bg:radial-gradient(circle at 50% 25%, #2d1b4e 0%, #120c1f 75%);
+  --cream:#fffdfb; --ink:#5a4a3f; --gold:#d4af37; --orange:#df6430; --deep:#2a1b4e; --card-radius:30px;
+}
+/* الثيم الزمردي الفاخر */
+body.theme-emerald {
+  --bg:radial-gradient(circle at 50% 25%, #0f382a 0%, #061812 75%);
+  --cream:#f7fbf9; --ink:#2c4239; --gold:#c5a059; --orange:#1f6e50; --deep:#0f382a; --card-radius:220px 220px 24px 24px;
+}
+/* الثيم الوردي الناعم */
+body.theme-blush {
+  --bg:radial-gradient(circle at 50% 25%, #592638 0%, #240c15 75%);
+  --cream:#fff9fa; --ink:#5c3d46; --gold:#d48c9c; --orange:#b84b68; --deep:#592638; --card-radius:36px;
+}
+/* الثيم الكلاسيكي الليلي */
+body.theme-midnight {
+  --bg:radial-gradient(circle at 50% 25%, #16243d 0%, #090e1a 75%);
+  --cream:#f4f7fb; --ink:#26344a; --gold:#b89758; --orange:#2c5282; --deep:#16243d; --card-radius:18px;
+}
+
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(circle at 50% 25%, #2d1b4e 0%, #120c1f 75%);font-family:Tajawal,Tahoma,sans-serif;color:var(--ink);line-height:1.7;min-height:100vh}
+body{margin:0;background:var(--bg);font-family:Tajawal,Tahoma,sans-serif;color:var(--ink);line-height:1.7;min-height:100vh;transition:background .6s ease}
 body:not(.open){overflow:hidden}
 
-/* واجهة الغلاف / قبل فتح الدعوة */
+/* الغلاف */
 #cv{position:fixed;inset:0;z-index:20;display:flex;overflow:hidden}
 #cv .h{flex:1;position:relative;z-index:1;background:linear-gradient(180deg,rgba(25,14,40,.85),rgba(12,7,25,.95));transition:transform 1.6s cubic-bezier(.7,0,.2,1)}
-#cv .h:first-child{border-left:2px solid rgba(212,175,55,0.4);transform-origin:right}
-#cv .h:nth-child(2){border-right:2px solid rgba(212,175,55,0.4)}
+#cv .h:first-child{border-left:2px solid var(--gold);transform-origin:right}
+#cv .h:nth-child(2){border-right:2px solid var(--gold)}
 #cv.go .h:first-child{transform:translateX(100%)}
 #cv.go .h:nth-child(2){transform:translateX(-100%)}
-#cv .t{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#fdf6e2;text-align:center;pointer-events:none;transition:opacity .6s}
+#cv .t{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#fdf6e2;text-align:center;pointer-events:none;transition:opacity .6s;z-index:2;text-shadow:0 4px 20px rgba(0,0,0,0.85)}
 #cv.go .t{opacity:0}
-
-/* خلفية بوابة فتح الدعوة */
-#cv .ph{position:absolute;inset:0;z-index:0;background:url('https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;transition:opacity 1.8s ease,transform 1.8s ease;filter: brightness(0.45) contrast(1.1);transform:scale(1.03)}
+#cv .ph{position:absolute;inset:0;z-index:0;background:#120c1f center/cover no-repeat;transition:opacity 1.8s ease,transform 1.8s ease;filter:brightness(0.45) contrast(1.1);transform:scale(1.03)}
 #cv.go .ph{opacity:0;transform:scale(1.15)}
-
-#cv .t{z-index:2;text-shadow:0 4px 20px rgba(0,0,0,0.85)}
 #cv .t small{font-size:1.15rem;letter-spacing:.08em;color:#e8d093}
-#cv .t b{font:700 2.8rem/1.3 "Aref Ruqaa",serif;color:#fff;text-shadow:0 0 25px rgba(212,175,55,0.4)}
+#cv .t b{font:700 2.8rem/1.3 "Aref Ruqaa",serif;color:#fff}
 #cv .t span{font-family:Amiri,serif;font-size:1.7rem;color:#f3dec2}
+.seal{pointer-events:auto;margin-top:24px;width:110px;height:110px;border-radius:50%;border:2px solid #f6e3b4;background:radial-gradient(circle at 35% 30%,#f5dc8c,#9e7722);color:#211403;font:700 1.4rem "Aref Ruqaa",serif;cursor:pointer;box-shadow:0 0 25px rgba(212,175,55,0.45),0 0 0 10px rgba(246,227,180,0.15);animation:pl 2.2s ease-in-out infinite}
+@keyframes pl{50%{box-shadow:0 0 35px rgba(212,175,55,0.7),0 0 0 20px rgba(246,227,180,0)}}
 
-/* زر الفتح المضيء */
-.seal{pointer-events:auto;margin-top:24px;width:110px;height:110px;border-radius:50%;border:2px solid #f6e3b4;background:radial-gradient(circle at 35% 30%,#f5dc8c,#9e7722);color:#211403;font:700 1.4rem "Aref Ruqaa",serif;cursor:pointer;box-shadow:0 0 25px rgba(212,175,55,0.45), 0 0 0 10px rgba(246,227,180,0.15);animation:pl 2.2s ease-in-out infinite}
-.seal:focus-visible{outline:3px solid #fff;outline-offset:4px}
-@keyframes pl{50%{box-shadow:0 0 35px rgba(212,175,55,0.7), 0 0 0 20px rgba(246,227,180,0)}}
-
-/* بطاقة الدعوة بعد الفتح */
+/* البطاقة */
 main{max-width:470px;margin:0 auto;padding:26px 12px 40px}
-.card{position:relative;background:var(--cream);border-radius:30px;padding:50px 24px 60px;text-align:center;overflow:hidden;box-shadow:0 25px 70px rgba(10,5,20,0.6), inset 0 0 50px rgba(212,175,55,0.12);border:1px solid rgba(212,175,55,0.35)}
+.card{position:relative;background:var(--cream);border-radius:var(--card-radius);padding:60px 24px 60px;text-align:center;overflow:hidden;box-shadow:0 25px 70px rgba(10,5,20,0.6),inset 0 0 50px rgba(212,175,55,0.12);border:1px solid var(--gold);transition:all .6s ease}
 .card>*:not(.fl){position:relative;z-index:1}
-
-/* زخارف الورود الحقيقية في الزوايا */
-.fl{position:absolute;width:110px;height:110px;z-index:2;pointer-events:none;background-size:contain;background-repeat:no-repeat;opacity:0.9;}
-.a{top:10px;right:10px;background-image:url('https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=300&q=80');border-radius:50%;mix-blend-mode:multiply;}
-.b{top:10px;left:10px;background-image:url('https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=300&q=80');border-radius:50%;transform:scaleX(-1);mix-blend-mode:multiply;}
+.fl{position:absolute;width:110px;height:110px;z-index:2;pointer-events:none;background-size:contain;background-repeat:no-repeat;opacity:0.85}
+.a{top:10px;right:10px;background-image:url('https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=300&q=80');border-radius:50%;mix-blend-mode:multiply}
+.b{top:10px;left:10px;background-image:url('https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=300&q=80');border-radius:50%;transform:scaleX(-1);mix-blend-mode:multiply}
 
 .r{opacity:0}
 .open .r{animation:up .9s both var(--d,0s)}
 @keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 
-.ayah{font:700 2.1rem/1.5 "Aref Ruqaa",serif;color:var(--orange);margin:0 0 12px;text-shadow:0 2px 10px rgba(223,100,48,0.15)}
-.poem{font:700 1.12rem/1.8 Amiri,serif;margin:0 0 20px;color:#7a6a5c}
+.ayah{font:700 2.1rem/1.5 "Aref Ruqaa",serif;color:var(--orange);margin:0 0 12px}
+.poem{font:700 1.12rem/1.8 Amiri,serif;margin:0 0 20px}
 .inv{color:var(--navy);font-weight:500;font-size:1.05rem;margin:0}
-.div{display:flex;align-items:center;gap:8px;margin:8px auto 16px;max-width:300px;color:#b59edb}
+.div{display:flex;align-items:center;gap:8px;margin:8px auto 16px;max-width:300px;color:var(--gold)}
 .div:before,.div:after{content:"";flex:1;height:1px;background:currentColor}
 .div i{width:8px;height:8px;background:currentColor;transform:rotate(45deg)}
-.lbl{font-weight:700;color:#5c5047;margin:0 0 10px}
+.lbl{font-weight:700;margin:0 0 10px}
 .names{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:6px;margin:8px 0 14px}
 .nm{font:700 2.05rem/1.25 Amiri,serif}
 .nm u{display:block;height:2px;width:70%;margin:6px auto;background:var(--orange);text-decoration:none}
 .g{color:#8a7458}.br{color:#5f7a45}
-.amp{font:400 4.2rem/1 Amiri,serif;color:var(--gold);text-shadow:0 2px 10px rgba(197,168,109,0.3)}
+.amp{font:400 4.2rem/1 Amiri,serif;color:var(--gold)}
 
-/* الصورة البارزة ذات الإطار المجسم ثلاثي الأبعاد (3D) */
-.pic{margin:28px auto 10px;width:90%;aspect-ratio:4/3.2;padding:10px;border-radius:24px;background:linear-gradient(135deg,#ffe89c 0%,#d4af37 50%,#8c6218 100%);box-shadow:0 20px 45px rgba(42,27,78,0.35), 0 0 25px rgba(212,175,55,0.6), inset 0 2px 6px rgba(255,255,255,0.8);border:3px solid #fff;transform: perspective(1000px) translateZ(10px);}
-.pic div{height:100%;overflow:hidden;border-radius:16px;box-shadow:inset 0 0 15px rgba(0,0,0,0.2)}
+/* إطار الصورة البارز */
+.pic{margin:28px auto 10px;width:90%;aspect-ratio:4/3.2;padding:10px;border-radius:24px;background:linear-gradient(135deg,#ffe89c 0%,var(--gold) 50%,#8c6218 100%);box-shadow:0 20px 45px rgba(0,0,0,0.3),0 0 25px rgba(212,175,55,0.5);border:3px solid #fff}
+.pic div{height:100%;overflow:hidden;border-radius:16px}
 .pic img{display:block;width:100%;height:100%;object-fit:cover;animation:kb 16s ease-in-out infinite alternate}
 @keyframes kb{to{transform:scale(1.08)}}
 
 .when{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;margin:18px 0 6px;font-weight:500}
 .when .m{font:400 3.6rem/1 Amiri,serif;color:var(--gold)}
-.when .y{display:block;font-size:.85rem;letter-spacing:.3em;color:#5c5047}
+.when .y{display:block;font-size:.85rem;letter-spacing:.3em}
 .when span{border-block:1px solid #c9bda9;padding:8px 2px}
 .cd{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:20px 0 6px}
-.cd div{background:#f3eafb;border-radius:14px;padding:8px 2px;color:var(--deep);box-shadow:0 4px 12px rgba(50,29,84,0.06)}
-.cd b{display:block;font:700 1.6rem/1.2 Tajawal,sans-serif;font-variant-numeric:tabular-nums}
+.cd div{background:rgba(120,100,160,0.1);border-radius:14px;padding:8px 2px;color:var(--deep)}
+.cd b{display:block;font:700 1.6rem/1.2 Tajawal,sans-serif}
 .cd small{font-size:.8rem}
 .place{margin-top:26px}
-.place svg{width:34px;height:34px}
-.place h3{margin:4px 0 2px;font-size:1.3rem;color:#4a3d34}
+.place h3{margin:4px 0 2px;font-size:1.3rem}
 .place p{margin:0;color:var(--rose);font-weight:500}
 .tm{color:#387024!important;font-weight:700!important;margin-top:6px!important}
-.btn{display:inline-block;margin-top:10px;padding:8px 18px;border:1.5px solid #b9a4d6;border-radius:999px;color:var(--deep);text-decoration:none;font:500 .95rem Tajawal,sans-serif;background:transparent;cursor:pointer;transition:all 0.3s}
-.btn:hover,.btn:focus-visible{background:#f0e8f8;box-shadow:0 4px 12px rgba(185,164,214,0.3)}
+.btn{display:inline-block;margin-top:10px;padding:8px 18px;border:1.5px solid var(--gold);border-radius:999px;color:var(--deep);text-decoration:none;font:500 .95rem Tajawal,sans-serif;background:transparent;cursor:pointer}
 .end{font:700 1.7rem/1.5 "Aref Ruqaa",serif;color:var(--orange);margin:28px 0 8px}
 .acts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
 
-/* ملاحظة مدة الدعوة الواضحة */
-.expiry-notice {
-  margin: 18px auto 8px;
-  background: rgba(223, 100, 48, 0.1);
-  border: 1px dashed var(--orange);
-  padding: 10px 14px;
-  border-radius: 12px;
-  color: #b33912;
-  font-weight: 700;
-  font-size: 0.95rem;
-}
+.expiry-notice{margin:18px auto 8px;background:rgba(223,100,48,0.1);border:1px dashed var(--orange);padding:10px 14px;border-radius:12px;color:#b33912;font-weight:700;font-size:0.95rem}
+.visitor-badge{margin:10px auto 0;display:inline-flex;align-items:center;gap:8px;background:rgba(212,175,55,0.12);border:1px solid var(--gold);padding:6px 16px;border-radius:999px;font-size:0.9rem;font-weight:500}
 
-/* عداد الزوار */
-.visitor-badge {
-  margin: 10px auto 0;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(212, 175, 55, 0.12);
-  border: 1px solid var(--gold);
-  padding: 6px 16px;
-  border-radius: 999px;
-  font-size: 0.9rem;
-  color: #4a3d34;
-  font-weight: 500;
-  box-shadow: 0 4px 10px rgba(212,175,55,0.1);
-}
-.visitor-badge span {
-  font-weight: 700;
-  color: var(--deep);
-}
+#expiredScreen{position:fixed;inset:0;background:#120c1f;color:#fff;z-index:9999;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px}
+#expiredScreen h2{font-family:'Aref Ruqaa',serif;font-size:2.2rem;color:var(--gold);margin-bottom:10px}
 
-/* شاشة انتهاء الصلاحية */
-#expiredScreen {
-  position: fixed;
-  inset: 0;
-  background: #120c1f;
-  color: #fff;
-  z-index: 9999;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 20px;
-  font-family: Tajawal, sans-serif;
-}
-#expiredScreen h2 {
-  font-family: 'Aref Ruqaa', serif;
-  font-size: 2.2rem;
-  color: var(--gold);
-  margin-bottom: 10px;
-}
-#expiredScreen p {
-  font-size: 1.1rem;
-  color: #d1c4e9;
-}
-
-/* تأثيرات الورد والقلوب */
-.p{position:fixed;top:-30px;z-index:10;border-radius:60% 0 60% 0;pointer-events:none;animation:fall linear forwards}
-@keyframes fall{to{transform:translate(var(--x),110vh) rotate(540deg);opacity:.25}}
+/* المؤثرات المتحركة */
+.fx-item{position:fixed;z-index:10;pointer-events:none;user-select:none}
+@keyframes fall{0%{top:-30px;opacity:1}100%{top:110vh;transform:translateX(var(--x)) rotate(540deg);opacity:0}}
+@keyframes rise{0%{bottom:-30px;opacity:0;transform:scale(.6)}15%{opacity:.95}100%{bottom:110vh;transform:translateX(var(--x)) scale(1.2);opacity:0}}
+@keyframes sparkle{0%,100%{opacity:0;transform:scale(0.3)}50%{opacity:1;transform:scale(1.3)}}
 .ch{font-style:normal;font-size:1.7rem;color:#f2a3b5;animation:hb 1.8s ease-in-out infinite}
-.open .amp{animation:hb 1.8s ease-in-out 3.5s infinite;text-shadow:0 0 18px rgba(212,175,55,0.6)}
 @keyframes hb{0%,100%{transform:scale(1)}14%{transform:scale(1.15)}28%{transform:scale(1)}42%{transform:scale(1.1)}}
-.open::before{content:"";position:fixed;inset:0;z-index:5;pointer-events:none;background:radial-gradient(circle at 50% 45%,rgba(255,205,220,0.9),rgba(255,236,200,0.45) 35%,transparent 70%);animation:bloom 2.8s ease-out .2s both}
-@keyframes bloom{0%{opacity:0;transform:scale(.4)}30%{opacity:1}100%{opacity:0;transform:scale(1.8)}}
-.hr{position:fixed;bottom:-30px;z-index:10;pointer-events:none;opacity:0;animation:rise linear forwards}
-@keyframes rise{0%{opacity:0;transform:translate(0,0) scale(.6)}12%{opacity:.95}100%{opacity:0;transform:translate(var(--x),-108vh) scale(1.2)}}
-@media (prefers-reduced-motion:reduce){.hr,.p{display:none}.pic img,.ch,.open .amp{animation:none}.open::before{display:none}}
 </style>
 </head>
-<body>
+<body class="theme-royal">
 
-<!-- شاشة انتهاء صلاحية الدعوة (تظهر تلقائياً بعد 3 أيام) -->
 <div id="expiredScreen">
   <h2>انتهت صلاحية الدعوة</h2>
-  <p>عذراً، لقد انقضت مدة عرض هذه الدعوة (3 أيام) وتم إفراغ الصفحة تلقائياً.</p>
+  <p id="expiredMsg">عذراً، لقد انقضت مدة عرض هذه الدعوة وتم إغلاقها تلقائياً.</p>
 </div>
 
 <div id="cv">
-<div class="ph" role="img" aria-label="خلفية بوابة الدعوة"></div>
-<div class="h"></div><div class="h"></div>
-<div class="t">
-  <i class="ch" aria-hidden="true">&#9829;</i>
-  <small>تتشرف عائلتا العروسين بدعوتكم</small>
-  <b>دعوة زفاف</b>
-  <span>محمود عدي</span>
-  <button class="seal" id="seal" type="button" aria-label="افتح الدعوة">افتح</button>
-</div>
+  <div class="ph" id="coverImg" style="background-image:url('https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=1200&q=80')"></div>
+  <div class="h"></div><div class="h"></div>
+  <div class="t">
+    <i class="ch">&#9829;</i>
+    <small id="coverSubtitle">تتشرف عائلتا العروسين بدعوتكم</small>
+    <b id="coverTitle">دعوة زفاف</b>
+    <span id="coverNames">محمود عدي</span>
+    <button class="seal" id="seal" type="button">افتح</button>
+  </div>
 </div>
 
 <main><article class="card">
-<div class="fl a"></div>
-<div class="fl b"></div>
+  <div class="fl a"></div><div class="fl b"></div>
 
-<h1 class="ayah r" style="--d:.5s">وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً</h1>
-<p class="poem r" style="--d:.9s">إن السرور إذا تشارك ضوعفت<br>بسماته مع زمرة الأحبة</p>
-<p class="inv r" style="--d:1.3s">نتشرف بدعوتكم لحضور حفل زفاف</p>
-<div class="div r" style="--d:1.3s"><i></i></div>
-<p class="lbl r" style="--d:1.6s">كل من العرسان :</p>
-<div class="names r" style="--d:1.8s">
-<div class="nm g"><span>محمود</span><u></u><span>عدي</span></div>
-<div class="amp">&amp;</div>
-<div class="nm br"><span>كريمته</span><u></u><span>كريمته</span></div>
-</div>
-<p class="inv r" style="--d:2.1s">وذلك بمشيئة الله تعالى</p>
+  <h1 class="ayah r" style="--d:.5s" id="ayahText">وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً</h1>
+  <p class="poem r" style="--d:.9s" id="poemText">إن السرور إذا تشارك ضوعفت<br>بسماته مع زمرة الأحبة</p>
+  <p class="inv r" style="--d:1.3s">نتشرف بدعوتكم لحضور حفل زفاف</p>
+  <div class="div r" style="--d:1.3s"><i></i></div>
+  <p class="lbl r" style="--d:1.6s">كل من العرسان :</p>
+  <div class="names r" style="--d:1.8s">
+    <div class="nm g"><span id="groomFirst">محمود</span><u></u><span id="groomLast">عدي</span></div>
+    <div class="amp">&amp;</div>
+    <div class="nm br"><span id="brideFirst">كريمته</span><u></u><span id="brideLast">كريمته</span></div>
+  </div>
+  <p class="inv r" style="--d:2.1s">وذلك بمشيئة الله تعالى</p>
 
-<!-- الصورة البارزة بتصميم ثلاثي الأبعاد (تبادل الخواتم) -->
-<figure class="pic r" style="--d:2.4s">
-  <div><img alt="تبادل الخواتم" src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=800&q=80"></div>
-</figure>
+  <figure class="pic r" style="--d:2.4s">
+    <div><img id="mainPhoto" alt="صورة العروسين" src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=800&q=80"></div>
+  </figure>
 
-<div class="when r" style="--d:2.9s"><span>يوم الخميس</span><div><div class="m">19</div><b class="y">2026/11</b></div><span>06 مساءً</span></div>
-<div class="cd r" style="--d:3.2s" aria-live="off"><div><b id="dd">0</b><small>يوم</small></div><div><b id="hh">0</b><small>ساعة</small></div><div><b id="mm">0</b><small>دقيقة</small></div><div><b id="ss">0</b><small>ثانية</small></div></div>
+  <div class="when r" style="--d:2.9s">
+    <span id="dayName">يوم الخميس</span>
+    <div><div class="m" id="dayNum">19</div><b class="y" id="yearMonth">2026/11</b></div>
+    <span id="timeText">06 مساءً</span>
+  </div>
+  <div class="cd r" style="--d:3.2s">
+    <div><b id="dd">0</b><small>يوم</small></div>
+    <div><b id="hh">0</b><small>ساعة</small></div>
+    <div><b id="mm">0</b><small>دقيقة</small></div>
+    <div><b id="ss">0</b><small>ثانية</small></div>
+  </div>
 
-<section class="place r" style="--d:3.5s">
-<svg viewBox="0 0 24 24" fill="#d4af37" aria-hidden="true" style="width:34px;height:34px"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.500a2.5 2.5 0 0 1 0 5z"/></svg>
-<h3>معرة النعمان</h3><p>صالة الجمال ، الحارة القبلية ، كرم القصير</p>
-<a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=%D8%B5%D8%A7%D9%84%D8%A9%20%D8%A7%D9%84%D8%AC%D9%85%D8%A7%D9%84%20%D9%85%D8%B9%D8%B1%D8%A9%20%D8%A7%D9%84%D9%86%D8%B9%D9%85%D8%A7%D9%86">عرض الموقع على الخريطة</a>
-</section>
+  <section class="place r" style="--d:3.5s">
+    <svg viewBox="0 0 24 24" fill="var(--gold)" style="width:34px;height:34px"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.500a2.5 2.5 0 0 1 0 5z"/></svg>
+    <h3 id="hallCity">معرة النعمان</h3>
+    <p id="hallAddress">صالة الجمال ، الحارة القبلية ، كرم القصير</p>
+    <a class="btn" id="hallMap" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=صالة+الجمال+معرة+النعمان">عرض الموقع على الخريطة</a>
+  </section>
 
-<section class="place r" style="--d:3.8s">
-<div style="font-size:1.8rem" aria-hidden="true">🚘</div>
-<h3>موعد انطلاق الزفة</h3><p>مدينة سرمدا ، البردقلي مسجد العزة بالله<br>( الجامع الأسود )</p>
-<p class="tm">الساعة 4 مساءً</p>
-<a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=%D9%85%D8%B3%D8%AC%D8%AF%20%D8%A7%D9%84%D8%B9%D8%B2%D8%A9%20%D8%A8%D8%A7%D9%84%D9%84%D9%87%20%D8%B3%D8%B1%D9%85%D8%AF%D8%A7">عرض المكان على الخريطة</a>
-</section>
+  <section class="place r" style="--d:3.8s">
+    <div style="font-size:1.8rem">🚘</div>
+    <h3>موعد انطلاق الزفة</h3>
+    <p id="zaffaAddress">مدينة سرمدا ، البردقلي مسجد العزة بالله ( الجامع الأسود )</p>
+    <p class="tm" id="zaffaTime">الساعة 4 مساءً</p>
+    <a class="btn" id="zaffaMap" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=مسجد+العزة+بالله+سرمدا">عرض المكان على الخريطة</a>
+  </section>
 
-<p class="end r" style="--d:4.1s">وبحضوركم يزورنا الفرح</p>
+  <p class="end r" style="--d:4.1s" id="footerPhrase">وبحضوركم يزورنا الفرح</p>
 
-<!-- ملاحظة مدة الدعوة الواضحة -->
-<div class="expiry-notice r" style="--d:4.2s">
-  ⚠️ ملاحظة: مدة هذه الدعوة 3 أيام فقط وتُحذف تلقائياً
-</div>
+  <div class="expiry-notice r" style="--d:4.2s" id="noticeText">
+    ⚠️ ملاحظة: مدة هذه الدعوة 3 أيام فقط وتُحذف تلقائياً
+  </div>
 
-<!-- عداد الزوار -->
-<div class="visitor-badge r" style="--d:4.3s">
-  <span>👁️ عدد مشاهدات الدعوة:</span> <span id="visitorCount">...</span>
-</div>
+  <div class="visitor-badge r" style="--d:4.3s">
+    <span>👁️ عدد مشاهدات الدعوة:</span> <span id="visitorCount">0</span>
+  </div>
 
-<div class="acts r" style="--d:4.4s"><a class="btn" id="cal" target="_blank" rel="noopener">أضف إلى التقويم</a><button class="btn" id="sh" type="button">شارك الدعوة</button></div>
+  <div class="acts r" style="--d:4.4s">
+    <a class="btn" id="cal" target="_blank" rel="noopener">أضف إلى التقويم</a>
+    <button class="btn" id="sh" type="button">شارك الدعوة</button>
+  </div>
 </article></main>
 
 <script>
-(function(){
-var $=function(i){return document.getElementById(i)};
+// ضع رابط قاعدة بيانات Firebase هنا
+const DB_URL = "ضع_رابط_قاعدة_البيانات_هنا";
 
-// نظام انتهاء الصلاحية خلال 3 أيام تلقائياً
-function checkInvitationExpiry() {
-    let startTime = localStorage.getItem('invitation_start_time');
-    let now = new Date().getTime();
-    let threeDaysMs = 3 * 24 * 60 * 60 * 1000; // 3 أيام بالمللي ثانية
+const $ = id => document.getElementById(id);
+let targetTimestamp = new Date("2026-11-19T18:00:00+03:00").getTime();
+let currentEffect = "hearts";
+let fxInterval = null;
 
-    if (!startTime) {
-        localStorage.setItem('invitation_start_time', now);
-    } else {
-        if (now - parseInt(startTime) > threeDaysMs) {
-            // انقضت الـ 3 أيام -> تفريغ الصفحة وإظهار شاشة الانتهاء
-            $("expiredScreen").style.display = "flex";
-            document.body.innerHTML = "";
-            document.body.appendChild($("expiredScreen"));
-            return true;
-        }
-    }
-    return false;
+// تحديث العداد التنازلي
+setInterval(() => {
+  const s = Math.max(0, Math.floor((targetTimestamp - Date.now()) / 1000));
+  $("dd").textContent = Math.floor(s / 86400);
+  $("hh").textContent = Math.floor((s % 86400) / 3600);
+  $("mm").textContent = Math.floor((s % 3600) / 60);
+  $("ss").textContent = s % 60;
+}, 1000);
+
+// تشغيل المؤثرات حسب اختيار الأدمن
+function spawnEffect() {
+  if (document.hidden || currentEffect === "none") return;
+  const el = document.createElement("span");
+  el.className = "fx-item";
+  const left = Math.random() * 100 + "vw";
+  const xMove = (Math.random() * 100 - 50) + "px";
+
+  if (currentEffect === "hearts") {
+    const colors = ["#e46a86", "#f08fa3", "#d4af37", "#b48be0"];
+    el.textContent = "♥";
+    el.style.cssText = `left:${left};font-size:${14+Math.random()*16}px;color:${colors[Math.floor(Math.random()*4)]};--x:${xMove};animation:rise ${6+Math.random()*4}s linear forwards`;
+  } else if (currentEffect === "petals") {
+    const colors = ["#e9a9b0", "#f4d6c8", "#c9b3e6", "#ffccd5"];
+    const size = 10 + Math.random() * 10;
+    el.style.cssText = `left:${left};width:${size}px;height:${size}px;border-radius:60% 0 60% 0;background:${colors[Math.floor(Math.random()*4)]};--x:${xMove};animation:fall ${6+Math.random()*5}s linear forwards`;
+  } else if (currentEffect === "gold") {
+    el.textContent = "✦";
+    el.style.cssText = `left:${left};top:${Math.random()*100}vh;font-size:${12+Math.random()*18}px;color:#ffd700;text-shadow:0 0 10px #ffd700;animation:sparkle ${2+Math.random()*2}s ease-in-out forwards`;
+  } else if (currentEffect === "confetti") {
+    const colors = ["#d4af37", "#e46a86", "#4fd1c5", "#f6ad55"];
+    el.style.cssText = `left:${left};width:8px;height:14px;background:${colors[Math.floor(Math.random()*4)]};--x:${xMove};animation:fall ${4+Math.random()*3}s linear forwards`;
+  }
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 11000);
 }
 
-if (checkInvitationExpiry()) return;
+// تطبيق البيانات القادمة من لوحة التحكم لحظياً
+function applyConfig(data) {
+  if (!data) return;
 
-var T=new Date("2026-11-19T18:00:00+03:00").getTime();
-function tick(){var s=Math.max(0,Math.floor((T-Date.now())/1000));
-$("dd").textContent=Math.floor(s/86400);$("hh").textContent=Math.floor(s%86400/3600);
-$("mm").textContent=Math.floor(s%3600/60);$("ss").textContent=s%60}
-tick();setInterval(tick,1000);
+  // التحقق من حالة الدعوة أو انتهاء الصلاحية (3 أيام)
+  const threeDays = 3 * 24 * 60 * 60 * 1000;
+  if (data.isActive === false || (data.createdAt && (Date.now() - data.createdAt > threeDays))) {
+    $("expiredScreen").style.display = "flex";
+    return;
+  } else {
+    $("expiredScreen").style.display = "none";
+  }
 
-// عداد الزوار التفاعلي
-function initVisitorCounter() {
-    let count = localStorage.getItem('wedding_visitors_count');
-    if (!count) {
-        count = 142; 
-    } else {
-        count = parseInt(count) + 1;
-    }
-    localStorage.setItem('wedding_visitors_count', count);
-    $("visitorCount").textContent = count.toLocaleString('ar-SA');
+  // تطبيق الثيم
+  document.body.className = (document.body.classList.contains("open") ? "open " : "") + (data.theme || "theme-royal");
+
+  // تحديث المؤثر
+  currentEffect = data.effect || "hearts";
+
+  // تحديث النصوص
+  if(data.coverTitle) $("coverTitle").textContent = data.coverTitle;
+  if(data.coverSubtitle) $("coverSubtitle").textContent = data.coverSubtitle;
+  if(data.groomFirst && data.groomLast) $("coverNames").textContent = `${data.groomFirst} ${data.groomLast}`;
+  if(data.ayahText) $("ayahText").textContent = data.ayahText;
+  if(data.poemText) $("poemText").innerHTML = data.poemText.replace(/\n/g, "<br>");
+  if(data.groomFirst) $("groomFirst").textContent = data.groomFirst;
+  if(data.groomLast) $("groomLast").textContent = data.groomLast;
+  if(data.brideFirst) $("brideFirst").textContent = data.brideFirst;
+  if(data.brideLast) $("brideLast").textContent = data.brideLast;
+
+  // تحديث الصور
+  if(data.coverImg) $("coverImg").style.backgroundImage = `url('${data.coverImg}')`;
+  if(data.mainPhoto) $("mainPhoto").src = data.mainPhoto;
+
+  // تحديث المواعيد والأماكن
+  if(data.dayName) $("dayName").textContent = data.dayName;
+  if(data.dayNum) $("dayNum").textContent = data.dayNum;
+  if(data.yearMonth) $("yearMonth").textContent = data.yearMonth;
+  if(data.timeText) $("timeText").textContent = data.timeText;
+  if(data.countdownISO) targetTimestamp = new Date(data.countdownISO).getTime();
+
+  if(data.hallCity) $("hallCity").textContent = data.hallCity;
+  if(data.hallAddress) $("hallAddress").textContent = data.hallAddress;
+  if(data.hallMap) $("hallMap").href = data.hallMap;
+
+  if(data.zaffaAddress) $("zaffaAddress").innerHTML = data.zaffaAddress.replace(/\n/g, "<br>");
+  if(data.zaffaTime) $("zaffaTime").textContent = data.zaffaTime;
+  if(data.zaffaMap) $("zaffaMap").href = data.zaffaMap;
+
+  if(data.footerPhrase) $("footerPhrase").textContent = data.footerPhrase;
+  if(data.noticeText) $("noticeText").textContent = data.noticeText;
+  if(data.views !== undefined) $("visitorCount").textContent = Number(data.views).toLocaleString('ar-SA');
 }
-initVisitorCounter();
 
-$("cal").href="https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("حفل زفاف محمود عدي")+"&dates=20261119T150000Z/20261119T170000Z&location="+encodeURIComponent("صالة الجمال، الحارة القبلية، كرم القصير، معرة النعمان");
-$("sh").onclick=async function(){try{if(navigator.share){await navigator.share({title:document.title,url:location.href})}else{await navigator.clipboard.writeText(location.href);$("sh").textContent="تم نسخ الرابط"}}catch(e){}};
-function petals(){var c=["#c9b3e6","#e9a9b0","#f4d6c8","#b9a3de"];
-for(var i=0;i<18;i++){var p=document.createElement("span"),z=8+Math.random()*10;
-p.className="p";p.style.cssText="left:"+Math.random()*100+"vw;width:"+z+"px;height:"+z+"px;background:"+c[i%4]+";--x:"+(Math.random()*120-60)+"px;animation-duration:"+(6+Math.random()*5)+"s;animation-delay:"+Math.random()*2.5+"s";
-document.body.appendChild(p);setTimeout(function(e){e.remove()}.bind(null,p),12000)}}
-function hearts(n){var c=["#e46a86","#f08fa3","#c9a24a","#b48be0"];
-for(var i=0;i<n;i++){var s=document.createElement("span");s.className="hr";s.textContent="\u2665";
-s.style.cssText="left:"+Math.random()*100+"vw;font-size:"+(12+Math.random()*16)+"px;color:"+c[i%4]+";--x:"+(Math.random()*90-45)+"px;animation-duration:"+(6+Math.random()*4)+"s;animation-delay:"+(n>1?Math.random()*3:0)+"s";
-document.body.appendChild(s);setTimeout(function(e){e.remove()}.bind(null,s),13000)}}
-$("seal").onclick=function(){document.body.classList.add("open");$("cv").classList.add("go");petals();hearts(24);setInterval(function(){if(!document.hidden)hearts(1)},1700);setTimeout(function(){$("cv").remove()},1800)};
-})();
+// الاتصال اللحظي بقاعدة البيانات (Server-Sent Events) بدون تحديث يدوي
+function connectLiveDB() {
+  if (!DB_URL.startsWith("http")) return;
+
+  // تسجيل زيارة جديدة مرة واحدة لكل جلسة
+  if (!sessionStorage.getItem("counted_view")) {
+    fetch(`${DB_URL}/weddingConfig/views.json`)
+      .then(r => r.json())
+      .then(v => {
+        const nextViews = (Number(v) || 0) + 1;
+        fetch(`${DB_URL}/weddingConfig/views.json`, { method: "PUT", body: JSON.stringify(nextViews) });
+        sessionStorage.setItem("counted_view", "1");
+      });
+  }
+
+  // الاستماع لأي تغيير يحدث في لوحة التحكم وتطبيقه فوراً
+  const evtSource = new EventSource(`${DB_URL}/weddingConfig.json`);
+  evtSource.addEventListener("put", e => {
+    const parsed = JSON.parse(e.data);
+    if (parsed && parsed.data) applyConfig(parsed.data);
+  });
+  evtSource.addEventListener("patch", e => {
+    fetch(`${DB_URL}/weddingConfig.json`).then(r => r.json()).then(applyConfig);
+  });
+}
+
+connectLiveDB();
+
+$("seal").onclick = () => {
+  document.body.classList.add("open");
+  $("cv").classList.add("go");
+  for(let i=0; i<15; i++) setTimeout(spawnEffect, i*150);
+  if(!fxInterval) fxInterval = setInterval(spawnEffect, 900);
+  setTimeout(() => $("cv").remove(), 1800);
+};
+
+$("sh").onclick = async () => {
+  try {
+    if (navigator.share) await navigator.share({ title: document.title, url: location.href });
+    else { await navigator.clipboard.writeText(location.href); $("sh").textContent = "تم نسخ الرابط"; }
+  } catch (e) {}
+};
 </script>
 </body>
 </html>
